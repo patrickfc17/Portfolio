@@ -2,7 +2,7 @@ import { FailedToLoadElementError } from '../Errors/FailedToLoadElementError'
 import { RequiredAttributeError } from '../Errors/RequiredAttributeError'
 import { LoadComponentProcedure } from '../Types/components'
 
-const loadElement: LoadComponentProcedure = () => {
+const loadComponent: LoadComponentProcedure = () => {
     class Home extends HTMLElement {
         private static _templateElement = document.querySelector<HTMLTemplateElement>(`template`)
         private static _templateId = this._templateElement?.id
@@ -35,5 +35,5 @@ const loadElement: LoadComponentProcedure = () => {
 }
 
 export default {
-    load: () => loadElement()
+    load: () => loadComponent()
 }

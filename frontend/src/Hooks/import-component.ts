@@ -16,7 +16,7 @@ export const useImportedComponent = (
 ): void => {
     Promise.allSettled([
         fetch(`../../${templatePath}.html`),
-        import(`../../${scriptPath}`)
+        import(`../../${scriptPath}/${import.meta.env.VITE_PUBLIC_COMPONENT_DEFINITION_PREFIX}`)
     ]).then(async (results) => {        
         const values = checkPromisesResolution(results)        
 
