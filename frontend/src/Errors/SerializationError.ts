@@ -8,8 +8,4 @@ export class SerializationError extends UIError {
     protected async logError(): Promise<void> {
         // TODO API Log Endpoiunt
     }
-
-    getDefaultMessage(): string {
-        return `Failed to serialize given data. ${this.message}`
-    }
 }

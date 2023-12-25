@@ -18,7 +18,7 @@ export const useImportedComponent = (
         fetch(`../../${path}/${root}.html`),
         import(`../../${path}/${import.meta.env.VITE_PUBLIC_COMPONENT_DEFINITION_PREFIX}`)
     ]).then(async (results) => {        
-        const values = checkPromisesResolution(results)        
+        const values = checkPromisesResolution(results)
 
         try {
             const template = await parseTemplateContent(values[0])
@@ -27,7 +27,6 @@ export const useImportedComponent = (
             renderTemplate(template as string, componentScript)
         } catch (e: unknown) {
             if (e instanceof FailedToLoadComponentError) {
-                console.log(e.getDefaultMessage())
                 // TODO Fetch API endpoint to redirect to 500 Error Page
             }
         }

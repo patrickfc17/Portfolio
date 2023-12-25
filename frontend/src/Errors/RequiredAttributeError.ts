@@ -13,8 +13,4 @@ export class RequiredAttributeError extends UIError {
         // TODO Add Log Fetch to the Backend Endpoint
         return new Promise((res, rej) => {})
     }
-
-    getDefaultMessage(): string {
-        return this.errorMessage
-    }
 }

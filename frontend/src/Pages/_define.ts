@@ -37,3 +37,4 @@ const loadComponent: LoadComponentProcedure = () => {
 export default {
     load: () => loadComponent()
 }
+

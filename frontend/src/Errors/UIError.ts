@@ -6,6 +6,4 @@ export abstract class UIError extends Error {
     }
 
     protected abstract logError(): Promise<void>
-
-    abstract getDefaultMessage(): string
 }
