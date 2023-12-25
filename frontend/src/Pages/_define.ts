@@ -1,9 +1,10 @@
 import { FailedToLoadElementError } from '../Errors/FailedToLoadElementError'
+import { RequiredAttributeError } from '../Errors/RequiredAttributeError'
 
 const loadElement = () => {
     class Home extends HTMLElement {
         private static _templateElement = document.querySelector<HTMLTemplateElement>(`template`)
-        private static _templateId = this._templateElement!.id
+        private static _templateId = this._templateElement?.id
 
         constructor() {
             super()
@@ -20,9 +21,13 @@ const loadElement = () => {
             shadowRoot?.append(templateStyle, templateContent)
         }
 
-        public static get templateId(): string {
+        public static get templateId(): string | undefined {
             return this._templateId
         }
+    }
+
+    if (!Home.templateId) {
+        throw new RequiredAttributeError('The attribute "id" is required.')
     }
 
     customElements.define(`${Home.templateId}-`, Home)
