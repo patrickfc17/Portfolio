@@ -1,10 +1,10 @@
-class SerializationError extends DomainError {
+class SerializationError extends UIError {
     constructor(message: string = 'Failed to serialize given data') {
         super(message)
     }
 
     protected async logError(): Promise<void> {
-        // TODO API Log Endpoiunt    
+        // TODO API Log Endpoiunt
     }
 
     getDefaultMessage(): string {

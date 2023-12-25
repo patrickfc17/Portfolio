@@ -1,4 +1,4 @@
-abstract class DomainError extends Error {
+abstract class UIError extends Error {
     constructor(message: string) {
         super(message)
 

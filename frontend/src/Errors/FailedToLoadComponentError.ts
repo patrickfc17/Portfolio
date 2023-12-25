@@ -1,4 +1,4 @@
-class FailedToLoadComponentError extends DomainError {
+class FailedToLoadComponentError extends UIError {
     constructor(message = `Failed To Load Component`) {
         super(message)
     }

@@ -7,7 +7,7 @@ interface ScriptResponse extends Response {
 }
 
 // TODO Type some kind of regexp path to this parameters
-export const useExportedComponent = (
+export const useImportedComponent = (
     templatePath: string,
     scriptPath: string
 ): void => {
