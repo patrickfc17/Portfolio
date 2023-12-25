@@ -1,4 +1,4 @@
-abstract class UIError extends Error {
+export abstract class UIError extends Error {
     constructor(message: string) {
         super(message)
 

@@ -1,5 +1,8 @@
+import { FailedToLoadComponentError } from '../Errors/FailedToLoadComponentError'
+import { SerializationError } from '../Errors/SerializationError'
+
 type PromiseResult = [PromiseSettledResult<Response>, PromiseSettledResult<any>]
-type ResultValuesArray = [Promise<Response>, Promise<ScriptResponse>]
+type ResultValuesArray = [Response, Promise<ScriptResponse>]
 interface ScriptResponse extends Response {
     default: {
         load: () => void
@@ -12,16 +15,16 @@ export const useImportedComponent = (
     scriptPath: string
 ): void => {
     Promise.allSettled([
-        fetch(`../${templatePath}.html`),
-        import(`../${scriptPath}.js`)
-    ]).then(async (results) => {
-        const values = checkPromisesResolution(results)
+        fetch(`../../${templatePath}.html`),
+        import(`../../${scriptPath}`)
+    ]).then(async (results) => {        
+        const values = checkPromisesResolution(results)        
 
         try {
             const template = await parseTemplateContent(values[0])
             const componentScript = await values[1]
 
-            renderTemplate(template, componentScript)
+            renderTemplate(template as string, componentScript)
         } catch (e: unknown) {
             if (e instanceof FailedToLoadComponentError) {
                 console.log(e.getDefaultMessage())
@@ -47,15 +50,20 @@ const checkPromisesResolution = (results: PromiseResult): ResultValuesArray => {
 }
 
 const parseTemplateContent = async (
-    rawTemplate: Promise<Response>
-): Promise<string> => {
-    return await rawTemplate
-        .then((res: Response) => res.text())
-        .catch((err: Error) => {
+    rawTemplate: Response
+): Promise<string | boolean> => {
+    try {
+        return await rawTemplate
+            .text()
+    } catch (e: unknown) {
+        if (e instanceof Error) {
             throw new SerializationError(
-                `Failed to serialize given data. ${err.message}`
+                `Failed to serialize given data. ${e.message}`
             )
-        })
+        }
+
+        return false
+    }
 }
 
 const renderTemplate = (template: string, script: ScriptResponse): void => {

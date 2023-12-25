@@ -1,4 +1,6 @@
-class FailedToLoadComponentError extends UIError {
+import { UIError } from "./UIError"
+
+export class FailedToLoadComponentError extends UIError {
     constructor(message = `Failed To Load Component`) {
         super(message)
     }
