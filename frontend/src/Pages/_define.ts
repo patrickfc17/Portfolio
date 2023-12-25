@@ -1,7 +1,8 @@
 import { FailedToLoadElementError } from '../Errors/FailedToLoadElementError'
 import { RequiredAttributeError } from '../Errors/RequiredAttributeError'
+import { LoadComponentProcedure } from '../Types/components'
 
-const loadElement = () => {
+const loadElement: LoadComponentProcedure = () => {
     class Home extends HTMLElement {
         private static _templateElement = document.querySelector<HTMLTemplateElement>(`template`)
         private static _templateId = this._templateElement?.id
