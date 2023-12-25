@@ -11,12 +11,12 @@ interface ScriptResponse extends Response {
 
 // TODO Type some kind of regexp path to this parameters
 export const useImportedComponent = (
-    templatePath: string,
-    scriptPath: string
+    path: string,
+    root = 'index'
 ): void => {
     Promise.allSettled([
-        fetch(`../../${templatePath}.html`),
-        import(`../../${scriptPath}/${import.meta.env.VITE_PUBLIC_COMPONENT_DEFINITION_PREFIX}`)
+        fetch(`../../${path}/${root}.html`),
+        import(`../../${path}/${import.meta.env.VITE_PUBLIC_COMPONENT_DEFINITION_PREFIX}`)
     ]).then(async (results) => {        
         const values = checkPromisesResolution(results)        
 
