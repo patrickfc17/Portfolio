@@ -94,7 +94,7 @@ Após isso, crie um arquivo index.html e defina nele o template, ou seja, a estr
 <!-- <script type="module" src="script.ts"></script> -->
 ```
 
-Agora, será necessário criar o script que irá definir o seu novo WebComponent. Por padrão, este projeto utiliza o prefixo "+define" para arquivos TypeScript que definem um WebComponent.
+Agora, será necessário criar o script que irá definir o seu novo WebComponent. Por padrão, este projeto utiliza o prefixo "+define" para arquivos TypeScript que definem um WebComponent. Para a definição do "Shadow Root" de seu component, você pode utilizar o Hook "useShadowRoot", passando como parâmetro o id do seu componente e, opcionalmente, se ele possui um estilo prório ou não (o padrão para este parâmetro de estilo é "true". Dessa forma, caso seu componente não possua estilo, este parâmetro deve ser informado como "false")
 
 ```ts
 // src/Components/NewComponent/+define.ts
@@ -110,9 +110,9 @@ export const loadComponent: LoadComponentProcedure = () => {
 };
 ```
 
-Lembrando que o Tipo "LoadComponentProcedure" define o retorno desta função/procedimento como "void | FailedToLoadElementError | RequiredAttributeError". Como pode ver, existem dois tipos de erros a serem tratados nesses procedimentos: um erro caso não seja possível recuperar o elemento "template" do arquivo e outro caso este elemento não possua algum parâmetro obrigatório (no caso dos WebComponents utilizados neste projeto, todos devem possuir um "id" com o nome de seu componente). Dessa forma, lembre-se de tratar esses erros corretamente ao recuperar o template.
+Lembrando que o Tipo "LoadComponentProcedure" define o retorno desta função/procedimento como "void | FailedToLoadElementError | RequiredAttributeError". Como pode ver, existem dois tipos de erros a serem tratados nesses procedimentos: um erro caso não seja possível recuperar o elemento "template" do arquivo e outro caso este elemento não possua algum parâmetro obrigatório (no caso dos WebComponents utilizados neste projeto, todos devem possuir um "id" com o nome de seu componente).
 
-Assim, caso queira utilizar este novo componente customizado em uma página HTML, tudo que é necessário é utilizar o Hook "useImportedComponent", definido dentro do diretório "src/Hooks" no arquivo "import-component.ts". Este Hook aceita dois parâmetros: o caminho para o diretório desse componente e o nome do arquivo Root (Template HTML) deste componente, que por padrão é 'index'.
+Assim, caso queira utilizar este novo componente customizado em uma página HTML, tudo que é necessário é utilizar o Hook "useComponent", definido dentro do diretório "src/Hooks" no arquivo "import-component.ts". Este Hook aceita dois parâmetros: o caminho para o diretório desse componente e o nome do arquivo Root (Template HTML) deste componente, que por padrão é 'index'.
 
 ```ts
 // script.ts
