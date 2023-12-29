@@ -38,7 +38,7 @@ func registerDirs() {
 	_, currentFilePath, _, _ := runtime.Caller(1)
 
 	dirs := []string{
-		fmt.Sprintf("%v/%v", strings.Split(currentFilePath, "/infra/")[0], "frontend/src/Components"),
+		fmt.Sprintf("%v/%v", strings.Split(currentFilePath, "/infra")[0], "frontend/src/Components"),
 		fmt.Sprintf("%v/%v", strings.Split(currentFilePath, "/infra")[0], "frontend/src/Pages"),
 	}
 
