@@ -42,14 +42,7 @@ npm run dev
 ```
 
 ```bash
-npx sass ./src/Pages/main.scss ./src/app.css
-// ou
-npm install -g sass
-sass ./src/Pages/main.scss ./src/app.css
-```
-
-```bash
-./loader
+../infra/watcher
 ```
 
 ## Backend
