@@ -87,7 +87,7 @@ Após isso, crie um arquivo index.html e defina nele o template, ou seja, a estr
 <!-- <script type="module" src="script.ts"></script> -->
 ```
 
-Agora, será necessário criar o script que irá definir o seu novo WebComponent. Por padrão, este projeto utiliza o prefixo "+define" para arquivos TypeScript que definem um WebComponent. Para a definição do "Shadow Root" de seu component, você pode utilizar o Hook "useShadowRoot", passando como parâmetro o id do seu componente e, opcionalmente, se ele possui um estilo prório ou não (o padrão para este parâmetro de estilo é "true". Dessa forma, caso seu componente não possua estilo, este parâmetro deve ser informado como "false")
+Agora, será necessário criar o script que irá definir o seu novo WebComponent. Por padrão, este projeto utiliza o prefixo "+define" para arquivos TypeScript que definem um WebComponent. Para a definição do "Shadow Root" de seu componente, você pode utilizar o Hook "useShadowRoot", passando como parâmetro o id do seu componente e, opcionalmente, se ele possui um estilo prório ou não (o padrão para este parâmetro de estilo é "true". Dessa forma, caso seu componente não possua estilo, este parâmetro deve ser informado como "false")
 
 ```ts
 // src/Components/NewComponent/+define.ts
