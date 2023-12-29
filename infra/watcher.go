@@ -8,7 +8,6 @@ import (
 	"path/filepath"
 	"runtime"
 	"strings"
-	"time"
 
 	"github.com/fsnotify/fsnotify"
 )
@@ -75,7 +74,6 @@ func watchFiles() {
 			}
 
 			log.Println("Compiling assets for file:", event.Name)
-			time.Sleep(time.Second)
 			compileSass(event.Name)
 		case err := <-fileWatcher.Errors:
 			log.Fatal(err)

@@ -25,7 +25,7 @@ export const useShadowRoot: NewComponentDefinitionFuncType = ({ id, style = true
             }
 
             const templateStyle = !style ? '' :
-                document.querySelector<HTMLLinkElement>('link[rel="stylesheet"]')
+                document.querySelector<HTMLLinkElement>('link[template=""]')
 
             if (templateStyle === null) {
                 throw new FailedToLoadElementError()

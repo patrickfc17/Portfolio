@@ -1,6 +1,35 @@
 .navbar-list {
-  background-color: green;
-  color: black;
+  background-color: #18181b;
+  list-style-type: none;
+  font-size: 18px;
+  display: flex;
+  gap: 3rem;
+  border-bottom: 1px solid #fff;
+  padding-block: 1.5rem;
+  padding-left: 5rem;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  left: 0;
+  margin: 0;
+}
+.navbar-list > li {
+  background: linear-gradient(90deg, #d1d5db 50%, #e5e7eb 90%, #f3f4f6 100%);
+  background-clip: text;
+  color: transparent;
+  cursor: pointer;
+}
+.navbar-list > li:hover {
+  background-image: linear-gradient(90deg, #f3f4f6 50%, #d1d5db 90%, #d1d5db 100%);
+  background-clip: text;
+  color: #f1f5f9;
+  transition: color 350ms ease-in-out;
+}
+.navbar-list > li:not(:hover) {
+  background: linear-gradient(90deg, #d1d5db 50%, #e5e7eb 90%, #f3f4f6 100%);
+  background-clip: text;
+  color: transparent;
+  transition: color 350ms ease-in-out;
 }
 
 /*# sourceMappingURL=Navbar.css.map */
