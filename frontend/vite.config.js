@@ -1,14 +1,18 @@
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
-import dynamicImport from 'vite-plugin-dynamic-import'
 
 export default defineConfig({
-  plugins: [dynamicImport()],
+  plugins: [],
   build: {
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html')
       }
+    }
+  },
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, '.')
     }
   }
 })

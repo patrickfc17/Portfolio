@@ -1,3 +1,6 @@
-import { useImportedComponent } from './src/Hooks/import-component'
+import { useComponent } from './src/Hooks/import-component'
+import { loadComponent } from './src/Pages/+define'
+import { loadComponent as loadNavbar } from './src/Components/NavBar/+define'
 
-useImportedComponent('src/Pages', 'home')
+useComponent('src/Pages', loadComponent, 'home')
+useComponent('src/Components/NavBar', loadNavbar)

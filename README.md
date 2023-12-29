@@ -1,15 +1,17 @@
 # Site pessoal para Portfólio.
-- Patrick Ferreira Carvalho
+
+-   Patrick Ferreira Carvalho
 
 ## Tecnologias Utilizadas
-* Frontend:
-    - TypeScript
-    - WebComponents
-    - Sass
-    - Vite
-* Backend:
-    - NodeJS / TS
-    - ExpressJS / TS
+
+-   Frontend:
+    -   TypeScript
+    -   WebComponents
+    -   Sass
+    -   Vite
+-   Backend:
+    -   NodeJS / TS
+    -   ExpressJS / TS
 
 ## Setup Inicial
 
@@ -37,6 +39,17 @@ cp .env.example .env
 
 ```bash
 npm run dev
+```
+
+```bash
+npx sass ./src/Pages/main.scss ./src/app.css
+// ou
+npm install -g sass
+sass ./src/Pages/main.scss ./src/app.css
+```
+
+```bash
+./loader
 ```
 
 ## Backend
@@ -78,46 +91,35 @@ Após isso, crie um arquivo index.html e defina nele o template, ou seja, a estr
     <h1 class="title">Olá Web Components! :D</h1>
 </template>
 
-<script type="module" src="script.ts"></script>
+<!-- <script type="module" src="script.ts"></script> -->
 ```
 
-Agora, será necessário criar o script que irá definir o seu novo WebComponent. Por padrão, este projeto utiliza o prefixo "_define" para arquivos TypeScript que definem um WebComponent.
+Agora, será necessário criar o script que irá definir o seu novo WebComponent. Por padrão, este projeto utiliza o prefixo "+define" para arquivos TypeScript que definem um WebComponent.
 
 ```ts
-// src/Components/NewComponent/_define.ts
+// src/Components/NewComponent/+define.ts
 
-import { LoadComponentProcedure } from '../Types/components'
+import { LoadComponentProcedure } from "@/Types/components";
+import { useShadowRoot } from "@/Hooks/shadow-root-template";
 
-const loadComponent: LoadComponentProcedure = () => {
-    class NewComponent extends HTMLElement {
-        constructor() {
-            super()
-
-            const shadowRoot = this.attachShadow({ mode: 'open' })
-
-            const templateContent = document.querySelector<HTMLTemplateElement>('template')?.content
-
-            shadowRoot?.appendChild(templateContent)
-        }
-    }
-
-    customElements.define('new-component-', NewComponent)
-}
-
-export default {
-    load: () => loadComponent()
-}
+export const loadComponent: LoadComponentProcedure = () => {
+    customElements.define(
+        "new-component-",
+        useShadowRoot({ id: "new-component" })
+    );
+};
 ```
+
 Lembrando que o Tipo "LoadComponentProcedure" define o retorno desta função/procedimento como "void | FailedToLoadElementError | RequiredAttributeError". Como pode ver, existem dois tipos de erros a serem tratados nesses procedimentos: um erro caso não seja possível recuperar o elemento "template" do arquivo e outro caso este elemento não possua algum parâmetro obrigatório (no caso dos WebComponents utilizados neste projeto, todos devem possuir um "id" com o nome de seu componente). Dessa forma, lembre-se de tratar esses erros corretamente ao recuperar o template.
 
 Assim, caso queira utilizar este novo componente customizado em uma página HTML, tudo que é necessário é utilizar o Hook "useImportedComponent", definido dentro do diretório "src/Hooks" no arquivo "import-component.ts". Este Hook aceita dois parâmetros: o caminho para o diretório desse componente e o nome do arquivo Root (Template HTML) deste componente, que por padrão é 'index'.
 
 ```ts
 // script.ts
-import { useImportedComponent } from '../Hooks/import-component'
+import { useComponent } from "../Hooks/import-component";
+import { loadComponent } from '@/Components/NewComponent/+define'
 
-useImportedComponent('src/Components/NewComponent')
-
+useComponent("src/Components/NewComponent", loadComponent);
 ```
 
 Pronto! Agora com seu componente definido e importado no script da página que deseja usar, é só adicionar este script na página e usar o WebComponent:
@@ -137,10 +139,11 @@ Pronto! Agora com seu componente definido e importado no script da página que d
         </style>
     </head>
     <body>
-       <new-component-></new-component-> 
+        <new-component-></new-component->
     </body>
 </html>
 ```
 
 Essa é a estrutura mais básica para trabalhar com WebComponents neste projeto. Caso precise de mais informações sobre esta API, consulte:
-- https://developer.mozilla.org/pt-BR/docs/Web/API/Web_components
+
+-   https://developer.mozilla.org/pt-BR/docs/Web/API/Web_components
