@@ -7,7 +7,9 @@ import (
 	"os/exec"
 	"path/filepath"
 	"runtime"
+	"slices"
 	"strings"
+	"time"
 
 	"github.com/fsnotify/fsnotify"
 )
@@ -26,14 +28,22 @@ func main() {
 
 	defer fileWatcher.Close()
 
-	registerDirs()
+	if err != nil {
+		log.Fatal(err)
+	}
 
+	registerDirs(true)
+	
 	go watchFiles()
+
+	for range time.Tick(time.Second * 5) {
+		registerDirs(false)
+	}
 
 	<-make(chan bool)
 }
 
-func registerDirs() {
+func registerDirs(compile bool) {
 	_, currentFilePath, _, _ := runtime.Caller(1)
 
 	dirs := []string{
@@ -47,8 +57,15 @@ func registerDirs() {
 				return nil
 			}
 
-			compileSass(path)
-			return fileWatcher.Add(path)
+			if (compile == true) {
+				compileSass(path)
+			}
+
+			if !slices.Contains(fileWatcher.WatchList(), path) {
+				return fileWatcher.Add(path)
+			}
+
+			return nil
 		})
 
 		if err != nil {
