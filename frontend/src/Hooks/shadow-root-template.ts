@@ -14,7 +14,7 @@ export const useShadowRoot: NewComponentDefinitionFuncType = ({ id, style = true
 
             const shadowRoot = this.attachShadow({ mode: 'open' })
 
-            const template = document.querySelector<HTMLTemplateElement>(`template`)            
+            const template = document.querySelector<HTMLTemplateElement>(`template[id="${id}"]`)
 
             if (!template || !(template instanceof HTMLTemplateElement)) {
                 throw new FailedToLoadElementError()
@@ -25,7 +25,7 @@ export const useShadowRoot: NewComponentDefinitionFuncType = ({ id, style = true
             }
 
             const templateStyle = !style ? '' :
-                document.querySelector<HTMLLinkElement>('link[template=""]')
+                document.querySelector<HTMLLinkElement>(`link[template="${id}"]`)
 
             if (templateStyle === null) {
                 throw new FailedToLoadElementError()

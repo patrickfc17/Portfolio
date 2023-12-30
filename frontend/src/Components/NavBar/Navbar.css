@@ -3,10 +3,11 @@
   list-style-type: none;
   font-size: 18px;
   display: flex;
-  gap: 3rem;
+  gap: 5rem;
   border-bottom: 1px solid #fff;
   padding-block: 1.5rem;
-  padding-left: 5rem;
+  padding-right: 10rem;
+  padding-left: 0;
   align-items: center;
   position: sticky;
   top: 0;
@@ -30,6 +31,15 @@
   background-clip: text;
   color: transparent;
   transition: color 350ms ease-in-out;
+}
+
+.nav-main {
+  color: #f1f5f9 !important;
+  background: none !important;
+  background-clip: unset !important;
+  margin: auto;
+  font-size: 22px;
+  font-weight: 600;
 }
 
 /*# sourceMappingURL=Navbar.css.map */
