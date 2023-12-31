@@ -2,7 +2,7 @@
 
 -   Patrick Ferreira Carvalho
 
-## Tecnologias Utilizadas
+## Utilizado Nesse Projeto
 
 -   Frontend:
     -   TypeScript
@@ -12,6 +12,8 @@
 -   Backend:
     -   NodeJS / TS
     -   ExpressJS / TS
+-   Infrastructure
+    -   Go
 
 ## Setup Inicial
 
@@ -78,7 +80,11 @@ Após isso, crie um arquivo index.html e defina nele o template, ou seja, a estr
 
 ```html
 <!-- src/Components/NewComponent/index.html -->
-<link rel="stylesheet" href="style.css" />
+<link
+    rel="stylesheet"
+    href="/src/Components/NewComponent/NewComponent.css"
+    template="new-component"
+/>
 
 <template id="new-component">
     <h1 class="title">Olá Web Components! :D</h1>
@@ -109,8 +115,8 @@ Assim, caso queira utilizar este novo componente customizado em uma página HTML
 
 ```ts
 // script.ts
-import { useComponent } from "../Hooks/import-component";
-import { loadComponent } from '@/Components/NewComponent/+define'
+import { useComponent } from "@/Hooks/import-component";
+import { loadComponent } from "@/Components/NewComponent/+define";
 
 useComponent("src/Components/NewComponent", loadComponent);
 ```
