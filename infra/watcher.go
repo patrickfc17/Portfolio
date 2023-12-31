@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/fsnotify/fsnotify"
+	tsize "github.com/kopoli/go-terminal-size"
 )
 
 var fileWatcher *fsnotify.Watcher
@@ -52,33 +53,46 @@ func registerDirs(compile bool) {
 	}
 
 	for _, dir := range dirs {
-		err := filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
-			if !strings.HasSuffix(path, ".scss") {
-				return nil
-			}
+		addPathToWatcher(dir, compile)
+	}
+}
 
-			if (compile == true) {
-				compileSass(path)
-			}
-
-			if !slices.Contains(fileWatcher.WatchList(), path) {
-				return fileWatcher.Add(path)
-			}
-
+func addPathToWatcher(dir string, compile bool) {
+	err := filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
+		if !strings.HasSuffix(path, ".scss") {
 			return nil
-		})
-
-		if err != nil {
-			log.Fatal(err)
 		}
+
+		if (compile == true) {
+			compileSass(path)
+		}
+
+		if !slices.Contains(fileWatcher.WatchList(), path) {
+			return fileWatcher.Add(path)
+		}
+
+		return nil
+	})
+
+	if err != nil {
+		log.Fatal(err)
 	}
 }
 
 func compileSass(path string) {
-	log.Println("Executing command: npx sass", path, strings.Replace(path, "scss", "css", len("scss")))
-	cmd := exec.Command("npx", "sass", path, strings.Replace(path, "scss", "css", len("scss")))
+	message := fmt.Sprintf("Executing command: npx sass %v %v", path, strings.Replace(path, "scss", "css", len("scss")))
+	log.Println(message)
 
+	cmd := exec.Command("npx", "sass", path, strings.Replace(path, "scss", "css", len("scss")))
 	cmd.Run()
+
+	size, err := tsize.GetSize()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println(strings.Repeat("-", size.Width))
 }
 
 func watchFiles() {
